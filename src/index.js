@@ -1,6 +1,4 @@
+import ReactDOM from 'react-dom';
+import App from '../src/components/App';
 
-const App = () => {
-    return <div>App</div>;
-}
-
-export default App;
+ReactDOM.render(<App />, document.querySelector('#root'));
