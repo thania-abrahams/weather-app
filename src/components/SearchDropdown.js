@@ -1,9 +1,30 @@
 import styled from 'styled-components';
 
+const StyledLabel = styled.label`
+	font-family: 'Roboto Bold', sans-serif;
+	font-size: 1.5rem;
+	text-decoration: none;
+`;
+
+const StyledListContainer = styled.div`
+	margin: 1.5rem;
+	padding: 0.5rem;
+	border: 1px solid darkGray;
+`;
+
+const StyledList = styled.ul`
+	padding-left: 1rem;
+	font-size: 1rem;
+`;
+
 const StyledListItem = styled.li`
 	font-family: 'Roboto Regular', sans-serif;
-	display: flex;
-	text-decoration: none;
+	list-style: none;
+`;
+
+const StyledSelectedListItem = styled.li`
+	font-family: 'Roboto Regular', sans-serif;
+	list-style: none;
 `;
 
 const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
@@ -26,11 +47,11 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 	return (
 		<div>
 			<div>
-				<label>Select a city</label>
-				<div>
+				<StyledLabel>Select a city</StyledLabel>
+				<StyledListContainer>
 					<div>{selected.label}</div>
-					<ul>{renderedList}</ul>
-				</div>
+					<StyledList>{renderedList}</StyledList>
+				</StyledListContainer>
 			</div>
 		</div>
 	);
