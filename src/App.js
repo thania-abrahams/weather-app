@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import openweather from './apis/openweather';
 import SearchDropdown from './components/SearchDropdown';
 import WeeklyForecast from './components/WeeklyForecast';
 import DailyForecast from './components/DailyForecast';

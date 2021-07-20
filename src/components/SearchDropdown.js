@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const StyledLabel = styled.label`
@@ -7,19 +8,25 @@ const StyledLabel = styled.label`
 `;
 
 const StyledListContainer = styled.div`
-	margin: 1.5rem;
-	padding: 0.5rem;
+	margin: 15px;
+	padding: 10px;
 	border: 1px solid darkGray;
+	border-radius: 5px;
 `;
 
 const StyledList = styled.ul`
-	padding-left: 1rem;
+	padding-left: 10px;
 	font-size: 1rem;
 `;
 
 const StyledListItem = styled.li`
 	font-family: 'Roboto Regular', sans-serif;
 	list-style: none;
+	cursor: pointer;
+
+	&:hover {
+		font-size: scale(1.1);
+	}
 `;
 
 const StyledSelectedListItem = styled.li`
@@ -28,6 +35,8 @@ const StyledSelectedListItem = styled.li`
 `;
 
 const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
+	const [expanded, setExpanded] = useState(false);
+
 	const renderedList = cities.map((city) => {
 		//We do not want the selected city to display inside of the list as this would be redundant
 		if (city.value === selected.value) {
