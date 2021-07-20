@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
-const styledListItem = styled.li`
-    text-decoration
-
+const StyledListItem = styled.li`
+	font-family: 'Roboto Regular', sans-serif;
+	display: flex;
+	text-decoration: none;
 `;
 
 const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
@@ -13,9 +14,12 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 		}
 
 		return (
-			<li key={city.value} onClick={() => handleSelectedChange(city)}>
+			<StyledListItem
+				key={city.value}
+				onClick={() => handleSelectedChange(city)}
+			>
 				{city.label}
-			</li>
+			</StyledListItem>
 		);
 	});
 
