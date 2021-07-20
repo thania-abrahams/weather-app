@@ -1,13 +1,23 @@
+const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
+    const renderedList = cities.map((city) => {
+        return (
+            <li key={city.value} onClick={() => handleSelectedChange(city)}>
+                {city.label}
+            </li>
+        );
+    })
 
-const SearchDropdown = () => {
     return (
-        <div className="search-bar ui segment">
-            <form className="ui form">
-                <div className="field">
-                    <label>Location Dropdown</label>
-                    <input type="text" />
+        <div>
+            <div>
+                <label>Select a city</label>
+                <div>
+                    <div>{selected.label}</div>
+                    <ul>
+                        {renderedList}
+                    </ul>
                 </div>
-            </form>
+            </div>
         </div>
     )
 }
