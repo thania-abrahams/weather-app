@@ -22,6 +22,20 @@ const cities = [
 const App = () => {
 	const [selected, setSelected] = useState(cities[1]);
 
+	useEffect(() => {
+		const search = async () => {
+			const results = await openweather.get('/weather', {
+				params: {
+					q: selected.label,
+				},
+			});
+
+			console.log(results);
+		};
+
+		search();
+	});
+
 	return (
 		<div className="ui container">
 			<SearchDropdown
