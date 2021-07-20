@@ -1,6 +1,5 @@
-
 const WeeklyForecast = () => {
-    return <div>WeeklyForecast</div>;
-}
+	return <div>WeeklyForecast</div>;
+};
 
 export default WeeklyForecast;

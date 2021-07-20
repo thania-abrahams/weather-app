@@ -1,6 +1,5 @@
-
 const DailyForecast = () => {
-    return <div>DailyForecast</div>;
-}
+	return <div>DailyForecast</div>;
+};
 
 export default DailyForecast;
