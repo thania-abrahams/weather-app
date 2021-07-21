@@ -22,23 +22,20 @@ const DailyForecast = ({ forecastData, day }) => {
 		});
 
 	return (
-		<LineChart
-			width={800}
-			height={400}
-			data={data}
-			margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-		>
-			<XAxis dataKey="date" />
-			<YAxis dataKey="temperature" domain={['auto', 'auto']} />
-			<Tooltip />
-			<CartesianGrid stroke="#f5f5f5" />
-			<Line
-				type="monotone"
-				dataKey="temperature"
-				stroke="#ff7300"
-				yAxisId={0}
-			/>
-		</LineChart>
+		<div className="ui fluid image">
+			<LineChart width={800} height={400} data={data}>
+				<XAxis dataKey="date" />
+				<YAxis dataKey="temperature" domain={['auto', 'auto']} />
+				<Tooltip />
+				<CartesianGrid stroke="#f5f5f5" />
+				<Line
+					type="monotone"
+					dataKey="temperature"
+					stroke="#ff7300"
+					yAxisId={0}
+				/>
+			</LineChart>
+		</div>
 	);
 };
 

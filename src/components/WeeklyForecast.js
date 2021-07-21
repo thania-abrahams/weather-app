@@ -23,7 +23,7 @@ const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 	}
 
 	return (
-		<div className="ui horizontal list">
+		<div className="ui four stackable cards">
 			{forecastsToShow.map((forecast) => {
 				const readableTemperature = `${Math.round(forecast.main.temp - 270)} C`;
 
@@ -32,7 +32,7 @@ const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 				const readableDate = getRelativeDay(date);
 
 				return (
-					<div className="item">
+					<div className="ui fluid card">
 						<div
 							className="content"
 							style={{
