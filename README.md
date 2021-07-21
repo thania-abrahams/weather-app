@@ -1,6 +1,6 @@
 # Preview
 
-![Screenshot]('src/assets/images/preview.png')
+<img src="src/assets/images/preview.png" alt="App Preview"/>
 
 # Prerequisites
 
