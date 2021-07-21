@@ -1,6 +1,6 @@
 import { findClosestForecastToTime, getRelativeDay } from '../utils/utils';
 
-const WeeklyForecast = ({ forecastData }) => {
+const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 	const now = new Date();
 
 	console.log(forecastData);
@@ -32,7 +32,17 @@ const WeeklyForecast = ({ forecastData }) => {
 				const readableDate = getRelativeDay(date);
 
 				return (
-					<div key={forecast.dt}>
+					<div
+						style={{
+							border: '1px solid #ccc',
+							padding: 32,
+							cursor: 'pointer',
+							backgroundColor:
+								activeDay.getDay() === date.getDay() ? '#ccc' : '#fff',
+						}}
+						key={forecast.dt}
+						onClick={() => onSelectDay(date)}
+					>
 						<p>{readableDate}</p>
 						<h3>{readableTemperature}</h3>
 					</div>
