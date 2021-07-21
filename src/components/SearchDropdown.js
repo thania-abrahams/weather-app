@@ -42,7 +42,7 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 	useEffect(() => {
 		document.body.addEventListener('click', (e) => {
 			//If element clicked on is inside of dropdown then return early
-			if (ref.current.contains(e.target)) {
+			if (ref.current && ref.current.contains(e.target)) {
 				return;
 			}
 

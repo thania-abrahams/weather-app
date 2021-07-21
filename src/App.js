@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import openweather from './apis/openweather';
 import SearchDropdown from './components/SearchDropdown';
 import WeeklyForecast from './components/WeeklyForecast';
-import DailyForecast from './components/DailyForecast';
 
 const cities = [
 	{
@@ -21,16 +20,17 @@ const cities = [
 
 const App = () => {
 	const [selected, setSelected] = useState(cities[1]);
+	const [results, setResults] = useState();
 
 	useEffect(() => {
 		const search = async () => {
-			const results = await openweather.get('/weather', {
+			const response = await openweather.get('/forecast', {
 				params: {
 					q: selected.label,
 				},
 			});
 
-			console.log(results);
+			setResults(response.data);
 		};
 
 		search();
@@ -43,8 +43,7 @@ const App = () => {
 				selected={selected}
 				handleSelectedChange={setSelected}
 			/>
-			<WeeklyForecast />
-			<DailyForecast />
+			{results && <WeeklyForecast forecastData={results} />}
 		</div>
 	);
 };
