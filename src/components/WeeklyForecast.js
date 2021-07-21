@@ -13,6 +13,7 @@ const StyledCard = styled.div`
 	justify-content: center;
 	align-items: center;
 	margin: 10px;
+	padding: 20px;
 	max-width: 150px;
 	width: 100%;
 	min-height: 150px;
@@ -25,6 +26,23 @@ const StyledCardContent = styled.div`
 	padding: 30px,
 	min-height: 200px;
 	cursor: 'pointer',
+`;
+
+const StyledCardContentTitle = styled.p`
+	margin: 0;
+`;
+
+const StyledCardContentIcon = styled.img`
+	width: 50px;
+	height: 50px;
+`;
+
+const StyledCardContentSubtitle = styled.h3`
+	margin: 0;
+`;
+
+const StyledCardContentDescription = styled.p`
+	margin-top: 15px;
 `;
 
 const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
@@ -60,12 +78,21 @@ const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 
 				const description = forecast.weather[0].description;
 
+				const icon = forecast.weather[0].icon;
+
 				return (
 					<StyledCard key={forecast.dt}>
 						<StyledCardContent onClick={() => onSelectDay(date)}>
-							<p className="header">{readableDate}</p>
-							<h3 className="description">{readableTemperature}</h3>
-							<p className="description">{description}</p>
+							<StyledCardContentTitle>{readableDate}</StyledCardContentTitle>
+							<StyledCardContentIcon
+								src={`http://openweathermap.org/img/w/${icon}.png`}
+							></StyledCardContentIcon>
+							<StyledCardContentSubtitle>
+								{readableTemperature}
+							</StyledCardContentSubtitle>
+							<StyledCardContentDescription>
+								{description}
+							</StyledCardContentDescription>
 						</StyledCardContent>
 					</StyledCard>
 				);
