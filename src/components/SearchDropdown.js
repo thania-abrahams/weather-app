@@ -1,38 +1,39 @@
 import { useState } from 'react';
+import { Form, Input, TextArea, Button, Select } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-const StyledLabel = styled.label`
-	font-family: 'Roboto Bold', sans-serif;
-	font-size: 1.5rem;
-	text-decoration: none;
-`;
+// const StyledLabel = styled.label`
+// 	font-family: 'Roboto Bold', sans-serif;
+// 	font-size: 1.5rem;
+// 	text-decoration: none;
+// `;
 
-const StyledListContainer = styled.div`
-	margin: 15px;
-	padding: 10px;
-	border: 1px solid darkGray;
-	border-radius: 5px;
-`;
+// const StyledListContainer = styled.div`
+// 	margin: 15px;
+// 	padding: 10px;
+// 	border: 1px solid darkGray;
+// 	border-radius: 5px;
+// `;
 
-const StyledList = styled.ul`
-	padding-left: 10px;
-	font-size: 1rem;
-`;
+// const StyledList = styled.ul`
+// 	padding-left: 10px;
+// 	font-size: 1rem;
+// `;
 
-const StyledListItem = styled.li`
-	font-family: 'Roboto Regular', sans-serif;
-	list-style: none;
-	cursor: pointer;
+// const StyledListItem = styled.li`
+// 	font-family: 'Roboto Regular', sans-serif;
+// 	list-style: none;
+// 	cursor: pointer;
 
-	&:hover {
-		font-size: scale(1.1);
-	}
-`;
+// 	&:hover {
+// 		font-size: scale(1.1);
+// 	}
+// `;
 
-const StyledSelectedListItem = styled.li`
-	font-family: 'Roboto Regular', sans-serif;
-	list-style: none;
-`;
+// const StyledSelectedListItem = styled.li`
+// 	font-family: 'Roboto Regular', sans-serif;
+// 	list-style: none;
+// `;
 
 const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 	const [expanded, setExpanded] = useState(false);
@@ -44,23 +45,25 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 		}
 
 		return (
-			<StyledListItem
+			<div
+				className="item"
 				key={city.value}
 				onClick={() => handleSelectedChange(city)}
 			>
 				{city.label}
-			</StyledListItem>
+			</div>
 		);
 	});
 
 	return (
-		<div>
-			<div>
-				<StyledLabel>Select a city</StyledLabel>
-				<StyledListContainer>
-					<div>{selected.label}</div>
-					<StyledList>{renderedList}</StyledList>
-				</StyledListContainer>
+		<div className="ui form">
+			<div className="field">
+				<label className="label">Select a city</label>
+				<div className="ui selection dropdown visible active">
+					<i className="dropdown icon"></i>
+					<div className="text">{selected.label}</div>
+					<div className="menu visible transition">{renderedList}</div>
+				</div>
 			</div>
 		</div>
 	);
