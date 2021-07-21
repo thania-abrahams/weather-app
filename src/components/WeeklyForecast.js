@@ -26,17 +26,13 @@ const WeeklyForecast = ({ forecastData }) => {
 		<div>
 			{forecastsToShow.map((forecast) => {
 				const readableTemperature = `${Math.round(forecast.main.temp - 270)} C`;
+
 				const date = new Date(forecast.dt_txt);
+
 				const readableDate = getRelativeDay(date);
+
 				return (
-					<div
-						style={{
-							border: '1px solid #ccc',
-							padding: 32,
-							cursor: 'pointer',
-						}}
-						key={forecast.dt}
-					>
+					<div key={forecast.dt}>
 						<p>{readableDate}</p>
 						<h3>{readableTemperature}</h3>
 					</div>
