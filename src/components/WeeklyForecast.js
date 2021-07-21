@@ -9,11 +9,22 @@ const StyledCardList = styled.div`
 `;
 
 const StyledCard = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 10px;
 	max-width: 150px;
 	width: 100%;
+	min-height: 150px;
 	text-align: center;
 	color: darkblue;
+	border: 1px solid lightgray;
+`;
+
+const StyledCardContent = styled.div`
+	padding: 30px,
+	min-height: 200px;
+	cursor: 'pointer',
 `;
 
 const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
@@ -47,23 +58,15 @@ const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 
 				const readableDate = getRelativeDay(date);
 
+				const description = forecast.weather[0].description;
+
 				return (
-					<StyledCard>
-						<div
-							className="content"
-							style={{
-								border: '1px solid #ccc',
-								padding: 32,
-								cursor: 'pointer',
-								backgroundColor:
-									activeDay.getDay() === date.getDay() ? '#ccc' : '#fff',
-							}}
-							key={forecast.dt}
-							onClick={() => onSelectDay(date)}
-						>
+					<StyledCard key={forecast.dt}>
+						<StyledCardContent onClick={() => onSelectDay(date)}>
 							<p className="header">{readableDate}</p>
 							<h3 className="description">{readableTemperature}</h3>
-						</div>
+							<p className="description">{description}</p>
+						</StyledCardContent>
 					</StyledCard>
 				);
 			})}
