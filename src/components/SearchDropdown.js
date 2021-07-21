@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Form, Input, TextArea, Button, Select } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -37,6 +37,19 @@ import styled from 'styled-components';
 
 const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 	const [expanded, setExpanded] = useState(false);
+	const ref = useRef();
+
+	useEffect(() => {
+		document.body.addEventListener('click', (e) => {
+			//If element clicked on is inside of dropdown then return early
+			if (ref.current.contains(e.target)) {
+				return;
+			}
+
+			//Body clicked on so set state to close dropdown
+			setExpanded(false);
+		});
+	}, []);
 
 	const renderedList = cities.map((city) => {
 		//We do not want the selected city to display inside of the list as this would be redundant
@@ -56,7 +69,7 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 	});
 
 	return (
-		<div className="ui form">
+		<div className="ui form" ref={ref}>
 			<div className="field">
 				<label className="label">Select a city</label>
 				<div

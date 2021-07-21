@@ -34,7 +34,7 @@ const App = () => {
 		};
 
 		search();
-	}, []);
+	}, [selected]);
 
 	return (
 		<div className="ui container">
