@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import {
 	LineChart,
 	XAxis,
@@ -6,6 +7,11 @@ import {
 	Line,
 	Tooltip,
 } from 'recharts';
+
+const StyledChart = styled.div`
+	padding: 15px;
+	border: 1px solid darkgray;
+`;
 
 const DailyForecast = ({ forecastData, day }) => {
 	const data = forecastData.list
@@ -22,20 +28,20 @@ const DailyForecast = ({ forecastData, day }) => {
 		});
 
 	return (
-		<div className="ui container">
+		<StyledChart>
 			<LineChart width={800} height={400} data={data}>
 				<XAxis dataKey="date" />
 				<YAxis dataKey="temperature" domain={['auto', 'auto']} />
 				<Tooltip />
-				<CartesianGrid stroke="#f5f5f5" />
+				<CartesianGrid stroke="cornflowerblue" />
 				<Line
 					type="monotone"
 					dataKey="temperature"
-					stroke="#ff7300"
+					stroke="coral"
 					yAxisId={0}
 				/>
 			</LineChart>
-		</div>
+		</StyledChart>
 	);
 };
 

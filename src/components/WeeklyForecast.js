@@ -13,6 +13,7 @@ const StyledCard = styled.div`
 	max-width: 150px;
 	width: 100%;
 	text-align: center;
+	color: darkblue;
 `;
 
 const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
