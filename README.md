@@ -1,6 +1,6 @@
 # Preview
 
-![Screenshot]('./src/images/preview.png')
+![Screenshot]('src/assets/images/preview.png')
 
 # Prerequisites
 
