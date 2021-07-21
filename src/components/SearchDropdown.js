@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
+// TODO: Refactor to use styled components
 const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 	const [expanded, setExpanded] = useState(false);
 	const ref = useRef();

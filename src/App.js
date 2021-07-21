@@ -24,6 +24,7 @@ const cities = [
 	},
 ];
 
+//TODO: Add a spinning loader component
 const App = () => {
 	const [selected, setSelected] = useState(cities[1]);
 	const [results, setResults] = useState();
