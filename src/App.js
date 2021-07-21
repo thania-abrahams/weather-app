@@ -1,8 +1,13 @@
+import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import openweather from './apis/openweather';
 import SearchDropdown from './components/SearchDropdown';
 import WeeklyForecast from './components/WeeklyForecast';
 import DailyForecast from './components/DailyForecast';
+
+const StyledWrapper = styled.div`
+	margin: 20px;
+`;
 
 const cities = [
 	{
@@ -38,10 +43,8 @@ const App = () => {
 		search();
 	}, [selected]);
 
-	console.log(selected);
-
 	return (
-		<div>
+		<StyledWrapper>
 			<SearchDropdown
 				cities={cities}
 				selected={selected}
@@ -57,7 +60,7 @@ const App = () => {
 					<DailyForecast forecastData={results} day={activeDay} />
 				</>
 			)}
-		</div>
+		</StyledWrapper>
 	);
 };
 
