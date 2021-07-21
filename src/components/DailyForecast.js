@@ -22,7 +22,7 @@ const DailyForecast = ({ forecastData, day }) => {
 		});
 
 	return (
-		<div className="ui fluid image">
+		<div className="ui container">
 			<LineChart width={800} height={400} data={data}>
 				<XAxis dataKey="date" />
 				<YAxis dataKey="temperature" domain={['auto', 'auto']} />

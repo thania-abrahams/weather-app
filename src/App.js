@@ -41,7 +41,7 @@ const App = () => {
 	console.log(selected);
 
 	return (
-		<div className="ui container">
+		<div>
 			<SearchDropdown
 				cities={cities}
 				selected={selected}

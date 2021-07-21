@@ -1,39 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Form, Input, TextArea, Button, Select } from 'semantic-ui-react';
-import styled from 'styled-components';
-
-// const StyledLabel = styled.label`
-// 	font-family: 'Roboto Bold', sans-serif;
-// 	font-size: 1.5rem;
-// 	text-decoration: none;
-// `;
-
-// const StyledListContainer = styled.div`
-// 	margin: 15px;
-// 	padding: 10px;
-// 	border: 1px solid darkGray;
-// 	border-radius: 5px;
-// `;
-
-// const StyledList = styled.ul`
-// 	padding-left: 10px;
-// 	font-size: 1rem;
-// `;
-
-// const StyledListItem = styled.li`
-// 	font-family: 'Roboto Regular', sans-serif;
-// 	list-style: none;
-// 	cursor: pointer;
-
-// 	&:hover {
-// 		font-size: scale(1.1);
-// 	}
-// `;
-
-// const StyledSelectedListItem = styled.li`
-// 	font-family: 'Roboto Regular', sans-serif;
-// 	list-style: none;
-// `;
 
 const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 	const [expanded, setExpanded] = useState(false);
@@ -69,20 +34,22 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 	});
 
 	return (
-		<div className="ui form" ref={ref}>
-			<div className="field">
-				<label className="label">Select a city</label>
-				<div
-					//If state.expanded === open then show dropdown
-					className={`ui selection dropdown ${
-						expanded ? 'visible active' : ''
-					}`}
-					onClick={() => setExpanded(!expanded)}
-				>
-					<i className="dropdown icon"></i>
-					<div className="text">{selected.label}</div>
-					<div className={`menu ${expanded ? 'visible transition' : ''}`}>
-						{renderedList}
+		<div className="ui container">
+			<div className="ui form" ref={ref}>
+				<div className="field">
+					<label className="label">Select a city</label>
+					<div
+						//If state.expanded === open then show dropdown
+						className={`ui selection dropdown ${
+							expanded ? 'visible active' : ''
+						}`}
+						onClick={() => setExpanded(!expanded)}
+					>
+						<i className="dropdown icon"></i>
+						<div className="text">{selected.label}</div>
+						<div className={`menu ${expanded ? 'visible transition' : ''}`}>
+							{renderedList}
+						</div>
 					</div>
 				</div>
 			</div>

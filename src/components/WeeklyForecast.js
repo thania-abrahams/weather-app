@@ -1,4 +1,19 @@
+import styled from 'styled-components';
 import { findClosestForecastToTime, getRelativeDay } from '../utils/utils';
+
+const StyledCardList = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 25px;
+`;
+
+const StyledCard = styled.div`
+	margin: 10px;
+	max-width: 150px;
+	width: 100%;
+	text-align: center;
+`;
 
 const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 	const now = new Date();
@@ -23,7 +38,7 @@ const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 	}
 
 	return (
-		<div className="ui four stackable cards">
+		<StyledCardList>
 			{forecastsToShow.map((forecast) => {
 				const readableTemperature = `${Math.round(forecast.main.temp - 270)} C`;
 
@@ -32,7 +47,7 @@ const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 				const readableDate = getRelativeDay(date);
 
 				return (
-					<div className="ui fluid card">
+					<StyledCard>
 						<div
 							className="content"
 							style={{
@@ -48,10 +63,10 @@ const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 							<p className="header">{readableDate}</p>
 							<h3 className="description">{readableTemperature}</h3>
 						</div>
-					</div>
+					</StyledCard>
 				);
 			})}
-		</div>
+		</StyledCardList>
 	);
 };
 
