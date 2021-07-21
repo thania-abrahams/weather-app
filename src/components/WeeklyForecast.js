@@ -20,12 +20,19 @@ const StyledCard = styled.div`
 	text-align: center;
 	color: darkblue;
 	border: 1px solid lightgray;
+	opacity: 0.7;
+	background-color: lightgray;
+
+	&:hover {
+		opacity: 1;
+		transform: scale(1.1);
+	}
 `;
 
 const StyledCardContent = styled.div`
 	padding: 30px,
 	min-height: 200px;
-	cursor: 'pointer',
+	cursor: pointer;
 `;
 
 const StyledCardContentTitle = styled.p`
