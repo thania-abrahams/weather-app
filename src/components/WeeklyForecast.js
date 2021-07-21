@@ -23,7 +23,7 @@ const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 	}
 
 	return (
-		<div>
+		<div className="ui horizontal list">
 			{forecastsToShow.map((forecast) => {
 				const readableTemperature = `${Math.round(forecast.main.temp - 270)} C`;
 
@@ -32,19 +32,22 @@ const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
 				const readableDate = getRelativeDay(date);
 
 				return (
-					<div
-						style={{
-							border: '1px solid #ccc',
-							padding: 32,
-							cursor: 'pointer',
-							backgroundColor:
-								activeDay.getDay() === date.getDay() ? '#ccc' : '#fff',
-						}}
-						key={forecast.dt}
-						onClick={() => onSelectDay(date)}
-					>
-						<p>{readableDate}</p>
-						<h3>{readableTemperature}</h3>
+					<div className="item">
+						<div
+							className="content"
+							style={{
+								border: '1px solid #ccc',
+								padding: 32,
+								cursor: 'pointer',
+								backgroundColor:
+									activeDay.getDay() === date.getDay() ? '#ccc' : '#fff',
+							}}
+							key={forecast.dt}
+							onClick={() => onSelectDay(date)}
+						>
+							<p className="header">{readableDate}</p>
+							<h3 className="description">{readableTemperature}</h3>
+						</div>
 					</div>
 				);
 			})}
