@@ -59,10 +59,18 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 		<div className="ui form">
 			<div className="field">
 				<label className="label">Select a city</label>
-				<div className="ui selection dropdown visible active">
+				<div
+					//If state.expanded === open then show dropdown
+					className={`ui selection dropdown ${
+						expanded ? 'visible active' : ''
+					}`}
+					onClick={() => setExpanded(!expanded)}
+				>
 					<i className="dropdown icon"></i>
 					<div className="text">{selected.label}</div>
-					<div className="menu visible transition">{renderedList}</div>
+					<div className={`menu ${expanded ? 'visible transition' : ''}`}>
+						{renderedList}
+					</div>
 				</div>
 			</div>
 		</div>
