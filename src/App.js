@@ -27,7 +27,7 @@ const cities = [
 
 const App = () => {
 	const [isLoading, setLoading] = useState(true);
-	const [error, setError] = React.useState(null);
+	const [error, setError] = useState(null);
 	const [selected, setSelected] = useState(cities[1]);
 	const [results, setResults] = useState();
 	const [activeDay, setActiveDay] = useState(new Date());
@@ -46,10 +46,6 @@ const App = () => {
 
 			setResults(response.data);
 
-			if (error) return `Error: ${error.message}`;
-
-			if (!results) return 'An error has occurred, please try again later.';
-
 			setLoading(false);
 		};
 
@@ -59,6 +55,10 @@ const App = () => {
 	if (isLoading) {
 		return <LoadingSpinner />;
 	}
+
+	if (error) return `Error: ${error.message}`;
+
+	if (!results) return 'An error has occurred, please try again later.';
 
 	return (
 		<StyledWrapper>
