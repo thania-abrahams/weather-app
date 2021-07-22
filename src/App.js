@@ -4,6 +4,7 @@ import openweather from './apis/openweather';
 import SearchDropdown from './components/SearchDropdown';
 import WeeklyForecast from './components/WeeklyForecast';
 import DailyForecast from './components/DailyForecast';
+import LoadingSpinner from './components/LoadingSpinner';
 
 const StyledWrapper = styled.div`
 	margin: 20px;
@@ -24,8 +25,8 @@ const cities = [
 	},
 ];
 
-//TODO: Add a spinning loader component
 const App = () => {
+	const [isLoading, setLoading] = useState(true);
 	const [selected, setSelected] = useState(cities[1]);
 	const [results, setResults] = useState();
 	const [activeDay, setActiveDay] = useState(new Date());
@@ -39,10 +40,15 @@ const App = () => {
 			});
 
 			setResults(response.data);
+			setLoading(false);
 		};
 
 		search();
 	}, [selected]);
+
+	if (isLoading) {
+		return <LoadingSpinner />;
+	}
 
 	return (
 		<StyledWrapper>
