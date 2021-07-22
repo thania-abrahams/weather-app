@@ -27,7 +27,6 @@ const cities = [
 
 const App = () => {
 	const [isLoading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
 	const [selected, setSelected] = useState(cities[1]);
 	const [results, setResults] = useState();
 	const [activeDay, setActiveDay] = useState(new Date());
@@ -40,8 +39,8 @@ const App = () => {
 						q: selected.label,
 					},
 				})
-				.catch(() => {
-					setError(error);
+				.catch((err) => {
+					alert(err.message);
 				});
 
 			setResults(response.data);
@@ -55,8 +54,6 @@ const App = () => {
 	if (isLoading) {
 		return <LoadingSpinner />;
 	}
-
-	if (error) return `Error: ${error.message}`;
 
 	if (!results) return 'An error has occurred, please try again later.';
 
