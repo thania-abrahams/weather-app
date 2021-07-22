@@ -27,19 +27,29 @@ const cities = [
 
 const App = () => {
 	const [isLoading, setLoading] = useState(true);
+	const [error, setError] = React.useState(null);
 	const [selected, setSelected] = useState(cities[1]);
 	const [results, setResults] = useState();
 	const [activeDay, setActiveDay] = useState(new Date());
 
 	useEffect(() => {
 		const search = async () => {
-			const response = await openweather.get('/forecast', {
-				params: {
-					q: selected.label,
-				},
-			});
+			const response = await openweather
+				.get('/forecast', {
+					params: {
+						q: selected.label,
+					},
+				})
+				.catch(() => {
+					setError(error);
+				});
 
 			setResults(response.data);
+
+			if (error) return `Error: ${error.message}`;
+
+			if (!results) return 'An error has occurred, please try again later.';
+
 			setLoading(false);
 		};
 
