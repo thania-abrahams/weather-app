@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { findClosestForecastToTime, getRelativeDay } from '../utils/utils';
 
 const StyledCardList = styled.div`
 	display: flex;
@@ -50,60 +49,33 @@ const StyledCardContentSubtitle = styled.h3`
 
 const StyledCardContentDescription = styled.p`
 	margin-top: 15px;
+	text-transform: capitalize;
 `;
 
-const WeeklyForecast = ({ forecastData, onSelectDay, activeDay }) => {
-	const now = new Date();
+const WeeklyForecast = ({ currentData, forecastData }) => {
+	const timestamp = currentData.data.dt;
+	const date = new Date(timestamp).toLocaleDateString(undefined, {
+		weekday: 'long',
+	});
 
-	console.log(forecastData);
-	const forecastsToShow = [];
-
-	forecastsToShow.push(forecastData.list[0]);
-
-	for (let i = 1; i < 4; i++) {
-		const dailyForecasts = forecastData.list.filter((f) => {
-			const day = new Date(f.dt_txt);
-
-			return day.getDay() === now.getDay() + i;
-		});
-
-		const closest = findClosestForecastToTime(12, dailyForecasts);
-
-		if (closest) {
-			forecastsToShow.push(closest);
-		}
-	}
+	const icon = currentData.data.weather[0].icon;
 
 	return (
 		<StyledCardList>
-			{forecastsToShow.map((forecast) => {
-				const readableTemperature = `${Math.round(forecast.main.temp - 270)} C`;
-
-				const date = new Date(forecast.dt_txt);
-
-				const readableDate = getRelativeDay(date);
-
-				const description = forecast.weather[0].description;
-
-				const icon = forecast.weather[0].icon;
-
-				return (
-					<StyledCard key={forecast.dt}>
-						<StyledCardContent onClick={() => onSelectDay(date)}>
-							<StyledCardContentTitle>{readableDate}</StyledCardContentTitle>
-							<StyledCardContentIcon
-								src={`http://openweathermap.org/img/w/${icon}.png`}
-							></StyledCardContentIcon>
-							<StyledCardContentSubtitle>
-								{readableTemperature}
-							</StyledCardContentSubtitle>
-							<StyledCardContentDescription>
-								{description}
-							</StyledCardContentDescription>
-						</StyledCardContent>
-					</StyledCard>
-				);
-			})}
+			<StyledCard>
+				<StyledCardContent>
+					<StyledCardContentTitle>{date}</StyledCardContentTitle>
+					<StyledCardContentIcon
+						src={`http://openweathermap.org/img/w/${icon}.png`}
+					/>
+					<StyledCardContentSubtitle>
+						{Math.round(currentData.data.main.temp)} °C
+					</StyledCardContentSubtitle>
+					<StyledCardContentDescription>
+						{currentData.data.weather[0].description}
+					</StyledCardContentDescription>
+				</StyledCardContent>
+			</StyledCard>
 		</StyledCardList>
 	);
 };

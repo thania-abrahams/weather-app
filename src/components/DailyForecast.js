@@ -29,7 +29,7 @@ const DailyForecast = ({ forecastData, day }) => {
 
 	return (
 		<StyledChart>
-			<LineChart width={800} height={400} data={data}>
+			<LineChart width={400} height={200} data={data}>
 				<XAxis dataKey="date" />
 				<YAxis dataKey="temperature" domain={['auto', 'auto']} />
 				<Tooltip />
