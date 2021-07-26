@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 // TODO: Refactor to use styled components
-const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
+const SearchDropdown = ({ cities, selectedCity, handleSelectedChange }) => {
 	const [expanded, setExpanded] = useState(false);
 	const ref = useRef();
 
@@ -19,7 +19,7 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 
 	const renderedCities = cities.map((city) => {
 		//We do not want the selected city to display inside of the list as this would be redundant
-		if (city.value === selected.value) {
+		if (city.value === selectedCity.value) {
 			return null;
 		}
 
@@ -47,7 +47,7 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 						onClick={() => setExpanded(!expanded)}
 					>
 						<i className="dropdown icon"></i>
-						<div className="text">{selected.label}</div>
+						<div className="text">{selectedCity.label}</div>
 						<div className={`menu ${expanded ? 'visible transition' : ''}`}>
 							{renderedCities}
 						</div>

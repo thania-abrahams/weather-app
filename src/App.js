@@ -32,20 +32,20 @@ const cities = [
 
 const App = () => {
 	const [isLoading, setLoading] = useState(true);
-	const [selected, setSelected] = useState(cities[1]);
+	const [selectedCity, setSelectedCity] = useState(cities[1]);
 	const [current, setCurrent] = useState([]);
 	const [forecast, setForecast] = useState([]);
 
 	useEffect(() => {
 		searchCurrent();
 		searchForecast();
-	}, [selected]);
+	}, [selectedCity]);
 
 	const searchCurrent = async () => {
 		const currentData = await openweather
 			.get('/weather', {
 				params: {
-					q: selected.label,
+					q: selectedCity.label,
 					units: 'metric',
 				},
 			})
@@ -60,7 +60,7 @@ const App = () => {
 		const forecastData = await openweather
 			.get('/forecast', {
 				params: {
-					q: selected.label,
+					q: selectedCity.label,
 					units: 'metric',
 				},
 			})
@@ -82,8 +82,8 @@ const App = () => {
 		<StyledWrapper>
 			<SearchDropdown
 				cities={cities}
-				selected={selected}
-				handleSelectedChange={setSelected}
+				selectedCity={selectedCity}
+				handleSelectedChange={setSelectedCity}
 			/>
 			{current && forecast && (
 				<DayList currentData={current} forecastData={forecast} />
