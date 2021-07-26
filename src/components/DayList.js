@@ -16,7 +16,7 @@ const StyledCard = styled.div`
 	padding: 20px;
 	max-width: 150px;
 	width: 100%;
-	min-height: 150px;
+	min-height: 250px;
 	text-align: center;
 	color: darkblue;
 	border: 1px solid lightgray;
