@@ -45,21 +45,15 @@ const StyledCardContentDescription = styled.p`
 	text-transform: capitalize;
 `;
 
-const DayCard = ({}) => {
+const DayCard = ({ title, icon, subtitle, description }) => {
 	return (
 		<StyledCard>
 			<StyledCardContent>
-				<StyledCardContentTitle>
-					{getDay(currentData.data.dt)}
-				</StyledCardContentTitle>
-				<StyledCardContentIcon
-					src={`http://openweathermap.org/img/w/${icon}.png`}
-				/>
-				<StyledCardContentSubtitle>
-					{Math.round(currentData.data.main.temp)} °C
-				</StyledCardContentSubtitle>
+				<StyledCardContentTitle>{title}</StyledCardContentTitle>
+				<StyledCardContentIcon src={icon} />
+				<StyledCardContentSubtitle>{subtitle} °C</StyledCardContentSubtitle>
 				<StyledCardContentDescription>
-					{currentData.data.weather[0].description}
+					{description}
 				</StyledCardContentDescription>
 			</StyledCardContent>
 		</StyledCard>

@@ -1,56 +1,11 @@
 import styled from 'styled-components';
-import moment from 'moment';
+import DayCard from './DayCard';
 
 const StyledCardList = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin: 25px;
-`;
-
-const StyledCard = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 10px;
-	padding: 20px;
-	max-width: 150px;
-	width: 100%;
-	min-height: 250px;
-	text-align: center;
-	color: darkblue;
-	border: 1px solid lightgray;
-	opacity: 0.7;
-	background-color: lightgray;
-
-	&:hover {
-		opacity: 1;
-		transform: scale(1.1);
-	}
-`;
-
-const StyledCardContent = styled.div`
-	padding: 30px,
-	min-height: 200px;
-	cursor: pointer;
-`;
-
-const StyledCardContentTitle = styled.p`
-	margin: 0;
-`;
-
-const StyledCardContentIcon = styled.img`
-	width: 50px;
-	height: 50px;
-`;
-
-const StyledCardContentSubtitle = styled.h3`
-	margin: 0;
-`;
-
-const StyledCardContentDescription = styled.p`
-	margin-top: 15px;
-	text-transform: capitalize;
 `;
 
 const WeeklyForecast = ({ currentData, forecastData }) => {
@@ -70,45 +25,26 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 		getForecast &&
 		getForecast.map((item, index) => {
 			return (
-				<StyledCard>
-					<StyledCardContent>
-						<StyledCardContentTitle>
-							{new Date(item.dt_txt).toLocaleDateString(undefined, {
-								weekday: 'long',
-							})}
-						</StyledCardContentTitle>
-						<StyledCardContentIcon
-							src={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`}
-						/>
-						<StyledCardContentSubtitle>
-							{item.main.temp} °C
-						</StyledCardContentSubtitle>
-						<StyledCardContentDescription>
-							{item.weather[0].description}
-						</StyledCardContentDescription>
-					</StyledCardContent>
-				</StyledCard>
+				<DayCard
+					key={item.index}
+					title={new Date(item.dt_txt).toLocaleDateString(undefined, {
+						weekday: 'long',
+					})}
+					icon={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`}
+					subtitle={item.main.temp}
+					description={item.weather[0].description}
+				></DayCard>
 			);
 		});
 
 	return (
 		<StyledCardList>
-			<StyledCard>
-				<StyledCardContent>
-					<StyledCardContentTitle>
-						{getDay(currentData.data.dt)}
-					</StyledCardContentTitle>
-					<StyledCardContentIcon
-						src={`http://openweathermap.org/img/w/${currentData.data.weather[0].icon}.png`}
-					/>
-					<StyledCardContentSubtitle>
-						{Math.round(currentData.data.main.temp)} °C
-					</StyledCardContentSubtitle>
-					<StyledCardContentDescription>
-						{currentData.data.weather[0].description}
-					</StyledCardContentDescription>
-				</StyledCardContent>
-			</StyledCard>
+			<DayCard
+				title={getDay(currentData.data.dt)}
+				icon={`http://openweathermap.org/img/w/${currentData.data.weather[0].icon}.png`}
+				subtitle={Math.round(currentData.data.main.temp)}
+				description={currentData.data.weather[0].description}
+			/>
 			{renderedForecast}
 		</StyledCardList>
 	);

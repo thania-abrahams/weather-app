@@ -17,7 +17,7 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 		});
 	}, []);
 
-	const renderedList = cities.map((city) => {
+	const renderedCities = cities.map((city) => {
 		//We do not want the selected city to display inside of the list as this would be redundant
 		if (city.value === selected.value) {
 			return null;
@@ -49,7 +49,7 @@ const SearchDropdown = ({ cities, selected, handleSelectedChange }) => {
 						<i className="dropdown icon"></i>
 						<div className="text">{selected.label}</div>
 						<div className={`menu ${expanded ? 'visible transition' : ''}`}>
-							{renderedList}
+							{renderedCities}
 						</div>
 					</div>
 				</div>
