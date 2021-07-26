@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import moment from 'moment';
 
 const StyledCardList = styled.div`
 	display: flex;
@@ -53,14 +54,6 @@ const StyledCardContentDescription = styled.p`
 `;
 
 const WeeklyForecast = ({ currentData, forecastData }) => {
-	const getDay = (timestamp) => {
-		const date = new Date(timestamp).toLocaleDateString(undefined, {
-			weekday: 'long',
-		});
-
-		return date;
-	};
-
 	const icon = currentData.data.weather[0].icon;
 
 	const getForecast =
@@ -72,11 +65,14 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 	const renderedForecast =
 		getForecast &&
 		getForecast.map((item, index) => {
-			console.log(item);
 			return (
 				<StyledCard>
 					<StyledCardContent>
-						<StyledCardContentTitle>{getDay(item.dt)}</StyledCardContentTitle>
+						<StyledCardContentTitle>
+							{new Date(item.dt_txt).toLocaleDateString(undefined, {
+								weekday: 'long',
+							})}
+						</StyledCardContentTitle>
 						<StyledCardContentSubtitle>
 							{item.dt_txt} °C
 						</StyledCardContentSubtitle>
