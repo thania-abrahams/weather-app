@@ -54,7 +54,11 @@ const StyledCardContentDescription = styled.p`
 `;
 
 const WeeklyForecast = ({ currentData, forecastData }) => {
-	const icon = currentData.data.weather[0].icon;
+	const getDay = (timestamp) => {
+		let day = new Date(timestamp);
+
+		return day.toLocaleDateString(undefined, { weekday: 'long' });
+	};
 
 	const getForecast =
 		forecastData.data &&
@@ -73,9 +77,15 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 								weekday: 'long',
 							})}
 						</StyledCardContentTitle>
+						<StyledCardContentIcon
+							src={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`}
+						/>
 						<StyledCardContentSubtitle>
-							{item.dt_txt} °C
+							{item.main.temp} °C
 						</StyledCardContentSubtitle>
+						<StyledCardContentDescription>
+							{item.weather[0].description}
+						</StyledCardContentDescription>
 					</StyledCardContent>
 				</StyledCard>
 			);
@@ -89,7 +99,7 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 						{getDay(currentData.data.dt)}
 					</StyledCardContentTitle>
 					<StyledCardContentIcon
-						src={`http://openweathermap.org/img/w/${icon}.png`}
+						src={`http://openweathermap.org/img/w/${currentData.data.weather[0].icon}.png`}
 					/>
 					<StyledCardContentSubtitle>
 						{Math.round(currentData.data.main.temp)} °C
