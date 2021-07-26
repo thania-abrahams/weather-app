@@ -2,8 +2,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import openweather from './apis/openweather';
 import SearchDropdown from './components/SearchDropdown';
-import WeeklyForecast from './components/WeeklyForecast';
-// import DailyForecast from './components/DailyForecast';
+import DayList from './components/DayList';
 import LoadingSpinner from './components/LoadingSpinner';
 
 const StyledWrapper = styled.div`
@@ -62,12 +61,13 @@ const App = () => {
 			.get('/forecast', {
 				params: {
 					q: selected.label,
+					units: 'metric',
 				},
 			})
 			.catch((err) => {
 				alert(err.message);
 			});
-		setForecast(forecastData.data.list);
+		setForecast(forecastData);
 		setLoading(false);
 	};
 
@@ -86,7 +86,7 @@ const App = () => {
 				handleSelectedChange={setSelected}
 			/>
 			{current && forecast && (
-				<WeeklyForecast currentData={current} forecastData={forecast} />
+				<DayList currentData={current} forecastData={forecast} />
 			)}
 		</StyledWrapper>
 	);
