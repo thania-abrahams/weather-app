@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const StyledCard = styled.div`
@@ -45,9 +46,15 @@ const StyledCardContentDescription = styled.p`
 	text-transform: capitalize;
 `;
 
-const DayCard = ({ title, icon, subtitle, description }) => {
+const DayCard = ({
+	title,
+	icon,
+	subtitle,
+	description,
+	handleActiveChange,
+}) => {
 	return (
-		<StyledCard>
+		<StyledCard onClick={() => handleActiveChange(title)}>
 			<StyledCardContent>
 				<StyledCardContentTitle>{title}</StyledCardContentTitle>
 				<StyledCardContentIcon src={icon} />

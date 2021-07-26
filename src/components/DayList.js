@@ -26,16 +26,21 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 		getForecast.map((item, index) => {
 			return (
 				<DayCard
-					key={item.index}
+					key={index}
 					title={new Date(item.dt_txt).toLocaleDateString(undefined, {
 						weekday: 'long',
 					})}
 					icon={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`}
 					subtitle={item.main.temp}
 					description={item.weather[0].description}
+					handleActiveChange={() => console.log('I was clicked by the list!')}
 				></DayCard>
 			);
 		});
+
+	const handleActiveChange = () => {
+		console.log('whoop');
+	};
 
 	return (
 		<StyledCardList>
@@ -44,6 +49,7 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 				icon={`http://openweathermap.org/img/w/${currentData.data.weather[0].icon}.png`}
 				subtitle={Math.round(currentData.data.main.temp)}
 				description={currentData.data.weather[0].description}
+				handleActiveChange={handleActiveChange}
 			/>
 			{renderedForecast}
 		</StyledCardList>

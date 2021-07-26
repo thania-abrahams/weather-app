@@ -33,6 +33,7 @@ const cities = [
 const App = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [selectedCity, setSelectedCity] = useState(cities[1]);
+	const [activeDay, setActiveDay] = useState('Monday');
 	const [current, setCurrent] = useState([]);
 	const [forecast, setForecast] = useState([]);
 
