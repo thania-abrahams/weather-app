@@ -1,3 +1,4 @@
+import moment from 'moment';
 import styled from 'styled-components';
 import DayCard from './DayCard';
 
@@ -11,9 +12,9 @@ const StyledCardList = styled.div`
 
 const WeeklyForecast = ({ currentData, forecastData }) => {
 	const getDay = (timestamp) => {
-		let day = new Date(timestamp);
+		let day = new Date(timestamp * 1000);
 
-		return day.toLocaleDateString(undefined, { weekday: 'long' });
+		return moment(day).format('dddd');
 	};
 
 	const getForecast =
@@ -46,7 +47,7 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 	return (
 		<StyledCardList>
 			<DayCard
-				title={getDay(1627368353)}
+				title={getDay(currentData.data.dt)}
 				icon={`http://openweathermap.org/img/w/${currentData.data.weather[0].icon}.png`}
 				subtitle={Math.round(currentData.data.main.temp)}
 				description={currentData.data.weather[0].description}
