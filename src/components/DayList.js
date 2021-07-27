@@ -24,7 +24,7 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 
 	const renderedForecast =
 		getForecast &&
-		getForecast.map((item, index) => {
+		getForecast.slice(1).map((item, index) => {
 			return (
 				<DayCard
 					key={index}
@@ -46,7 +46,7 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 	return (
 		<StyledCardList>
 			<DayCard
-				title={getDay(currentData.data.dt)}
+				title={getDay(1627368353)}
 				icon={`http://openweathermap.org/img/w/${currentData.data.weather[0].icon}.png`}
 				subtitle={Math.round(currentData.data.main.temp)}
 				description={currentData.data.weather[0].description}
