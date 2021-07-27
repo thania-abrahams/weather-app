@@ -7,18 +7,16 @@ const StyledCard = styled.div`
 	align-items: center;
 	margin: 10px;
 	padding: 20px;
-	max-width: 150px;
-	width: 100%;
+	max-width: 100%;
+	width: 150px;
 	min-height: 150px;
 	text-align: center;
 	color: darkblue;
 	border: 1px solid lightgray;
 	opacity: 0.7;
-	background-color: lightgray;
 
 	&:hover {
 		opacity: 1;
-		transform: scale(1.1);
 	}
 `;
 

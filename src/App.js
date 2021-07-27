@@ -6,6 +6,9 @@ import DayList from './components/DayList';
 import LoadingSpinner from './components/LoadingSpinner';
 
 const StyledWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	margin: 20px;
 `;
 

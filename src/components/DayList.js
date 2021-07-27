@@ -5,6 +5,7 @@ const StyledCardList = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-wrap: wrap;
 	margin: 25px;
 `;
 
