@@ -70,8 +70,6 @@ const WeeklyForecast = ({
 		return moment(currentDay).format('dddd');
 	};
 
-	let currentList = [];
-
 	const getForecast =
 		forecastData.data &&
 		forecastData.data.list.filter((reading) =>
@@ -80,14 +78,14 @@ const WeeklyForecast = ({
 
 	console.log(getForecast);
 
-	const currentListAmended =
+	const getForecastAmended =
 		getForecast && getCurrentDayString() === getDay(getForecast[0].dt)
 			? getForecast && getForecast.slice(1)
 			: getForecast && getForecast.slice(0, 4);
 
 	const renderedForecast =
 		getForecast &&
-		currentListAmended.map((item, index) => {
+		getForecastAmended.map((item, index) => {
 			const date = new Date(item.dt);
 			return (
 				<StyledCard key={index} onClick={() => handleSelectedDay(date)}>
