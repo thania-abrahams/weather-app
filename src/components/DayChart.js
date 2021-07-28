@@ -37,12 +37,10 @@ const DayChart = ({ forecastData, activeDay }) => {
 		forecastData.data &&
 		forecastData.data.list
 			.filter((forecast) => {
-				console.log(forecast);
 				const d = new Date(forecast.dt_txt);
 				return d.getDay() === activeDay.getDay();
 			})
 			.map((forecast) => {
-				console.log(forecast.dt_txt);
 				const d = new Date(forecast.dt_txt);
 				return {
 					temperature: Math.round(forecast.main.temp),
@@ -52,7 +50,6 @@ const DayChart = ({ forecastData, activeDay }) => {
 					}),
 				};
 			});
-	console.log(new Date(activeDay));
 	return (
 		<StyledChart>
 			<LineChart width={800} height={400} data={data}>

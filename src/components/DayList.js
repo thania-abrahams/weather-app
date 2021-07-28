@@ -64,27 +64,33 @@ const WeeklyForecast = ({
 		return moment(day).format('dddd');
 	};
 
+	let currentList = [];
+
+	let getCurrentDayString = () => {
+		let currentDay = new Date();
+
+		return moment(currentDay).format('dddd');
+	};
+
 	const getForecast =
 		forecastData.data &&
-		forecastData.data.list.filter((reading) =>
-			reading.dt_txt.includes('12:00:00')
+		forecastData.data.list.filter(
+			(reading) => (currentList = reading.dt_txt.includes('12:00:00'))
 		);
 
-	const currentDate = new Date(currentData.data.dt);
+	currentList =
+		forecastData.data && getCurrentDayString() === getDay(getForecast[0].dt)
+			? getForecast.slice(1)
+			: getForecast.slice(0, 4);
+
+	console.log(currentList);
 
 	const renderedForecast =
 		getForecast &&
-		getForecast.map((item, index) => {
-			const forecastDate = new Date(item.dt);
+		currentList.map((item, index) => {
+			const date = new Date(item.dt);
 			return (
-				<StyledCard
-					key={index}
-					onClick={() => handleSelectedDay(forecastDate)}
-					style={{
-						backgroundColor:
-							activeDay.getDay() === forecastDate.getDay() ? '#ccc' : '#fff',
-					}}
-				>
+				<StyledCard key={index} onClick={() => handleSelectedDay(date)}>
 					<StyledCardContent>
 						<StyledCardContentTitle>
 							{new Date(item.dt_txt).toLocaleDateString(undefined, {
@@ -107,12 +113,7 @@ const WeeklyForecast = ({
 
 	return (
 		<StyledCardList>
-			<StyledCard
-				style={{
-					backgroundColor:
-						activeDay.getDay() === currentDate.getDay() ? '#ccc' : '#fff',
-				}}
-			>
+			<StyledCard>
 				<StyledCardContent>
 					<StyledCardContentTitle>
 						{getDay(currentData.data.dt)}
