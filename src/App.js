@@ -40,7 +40,7 @@ const cities = [
 const App = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [selectedCity, setSelectedCity] = useState(cities[1]);
-	const [activeDay, setActiveDay] = useState(new Date());
+	const [selectedDay, setSelectedDay] = useState(new Date());
 	const [current, setCurrent] = useState([]);
 	const [forecast, setForecast] = useState([]);
 
@@ -97,11 +97,11 @@ const App = () => {
 				<DayList
 					currentData={current}
 					forecastData={forecast}
-					activeDay={activeDay}
-					handleSelectedDay={setActiveDay}
+					selectedDay={selectedDay}
+					handleSelectedDay={setSelectedDay}
 				/>
 			)}
-			<DayChart forecastData={forecast} activeDay={activeDay} />
+			<DayChart forecastData={forecast} selectedDay={selectedDay} />
 		</StyledWrapper>
 	);
 };

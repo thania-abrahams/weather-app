@@ -13,32 +13,13 @@ const StyledChart = styled.div`
 	border: 1px solid darkgray;
 `;
 
-// const data = [
-// 	{
-// 		day: '00:00',
-// 		temp: '0',
-// 	},
-// 	{
-// 		day: '06:00',
-// 		temp: '10',
-// 	},
-// 	{
-// 		day: '12:00',
-// 		temp: '20',
-// 	},
-// 	{
-// 		day: '18:00',
-// 		temp: '40',
-// 	},
-// ];
-
-const DayChart = ({ forecastData, activeDay }) => {
+const DayChart = ({ forecastData, selectedDay }) => {
 	const data =
 		forecastData.data &&
 		forecastData.data.list
 			.filter((forecast) => {
 				const d = new Date(forecast.dt_txt);
-				return d.getDay() === activeDay.getDay();
+				return d.getDay() === selectedDay.getDay();
 			})
 			.map((forecast) => {
 				const d = new Date(forecast.dt_txt);

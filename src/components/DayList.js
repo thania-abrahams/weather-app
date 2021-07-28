@@ -55,8 +55,8 @@ const StyledCardContentDescription = styled.p`
 const WeeklyForecast = ({
 	currentData,
 	forecastData,
+	selectedDay,
 	handleSelectedDay,
-	activeDay,
 }) => {
 	const getDay = (timestamp) => {
 		let day = new Date(timestamp * 1000);
