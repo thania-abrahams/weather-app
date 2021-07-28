@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 // TODO: Refactor to use styled components
-const SearchDropdown = ({ cities, selectedCity, handleSelectedChange }) => {
+const SearchDropdown = ({ cities, selectedCity, handleSelectedCity }) => {
 	const [expanded, setExpanded] = useState(false);
 	const ref = useRef();
 
@@ -27,7 +27,7 @@ const SearchDropdown = ({ cities, selectedCity, handleSelectedChange }) => {
 			<div
 				className="item"
 				key={city.value}
-				onClick={() => handleSelectedChange(city)}
+				onClick={() => handleSelectedCity(city)}
 			>
 				{city.label}
 			</div>

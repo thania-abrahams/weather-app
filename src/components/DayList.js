@@ -52,7 +52,12 @@ const StyledCardContentDescription = styled.p`
 	text-transform: capitalize;
 `;
 
-const WeeklyForecast = ({ currentData, forecastData }) => {
+const WeeklyForecast = ({
+	currentData,
+	forecastData,
+	handleSelectedDay,
+	activeDay,
+}) => {
 	const getDay = (timestamp) => {
 		let day = new Date(timestamp * 1000);
 
@@ -65,11 +70,21 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 			reading.dt_txt.includes('12:00:00')
 		);
 
+	const currentDate = new Date(currentData.data.dt);
+
 	const renderedForecast =
 		getForecast &&
-		getForecast.slice(1).map((item, index) => {
+		getForecast.map((item, index) => {
+			const forecastDate = new Date(item.dt);
 			return (
-				<StyledCard key={index}>
+				<StyledCard
+					key={index}
+					onClick={() => handleSelectedDay(forecastDate)}
+					style={{
+						backgroundColor:
+							activeDay.getDay() === forecastDate.getDay() ? '#ccc' : '#fff',
+					}}
+				>
 					<StyledCardContent>
 						<StyledCardContentTitle>
 							{new Date(item.dt_txt).toLocaleDateString(undefined, {
@@ -90,13 +105,14 @@ const WeeklyForecast = ({ currentData, forecastData }) => {
 			);
 		});
 
-	const handleActiveChange = () => {
-		console.log('whoop');
-	};
-
 	return (
 		<StyledCardList>
-			<StyledCard>
+			<StyledCard
+				style={{
+					backgroundColor:
+						activeDay.getDay() === currentDate.getDay() ? '#ccc' : '#fff',
+				}}
+			>
 				<StyledCardContent>
 					<StyledCardContentTitle>
 						{getDay(currentData.data.dt)}

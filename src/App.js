@@ -40,7 +40,7 @@ const cities = [
 const App = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [selectedCity, setSelectedCity] = useState(cities[1]);
-	const [activeDay, setActiveDay] = useState('Monday');
+	const [activeDay, setActiveDay] = useState(new Date());
 	const [current, setCurrent] = useState([]);
 	const [forecast, setForecast] = useState([]);
 
@@ -91,12 +91,17 @@ const App = () => {
 			<SearchDropdown
 				cities={cities}
 				selectedCity={selectedCity}
-				handleSelectedChange={setSelectedCity}
+				handleSelectedCity={setSelectedCity}
 			/>
 			{current && forecast && (
-				<DayList currentData={current} forecastData={forecast} />
+				<DayList
+					currentData={current}
+					forecastData={forecast}
+					activeDay={activeDay}
+					handleSelectedDay={setActiveDay}
+				/>
 			)}
-			<DayChart />
+			<DayChart forecastData={forecast} activeDay={activeDay} />
 		</StyledWrapper>
 	);
 };
