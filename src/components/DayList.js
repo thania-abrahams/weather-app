@@ -64,7 +64,7 @@ const WeeklyForecast = ({
 		return moment(day).format('dddd');
 	};
 
-	let getCurrentDayString = () => {
+	let getCurrentDay = () => {
 		let currentDay = new Date();
 
 		return moment(currentDay).format('dddd');
@@ -79,7 +79,7 @@ const WeeklyForecast = ({
 	console.log(getForecast);
 
 	const getForecastAmended =
-		getForecast && getCurrentDayString() === getDay(getForecast[0].dt)
+		getForecast && getCurrentDay() === getDay(getForecast[0].dt)
 			? getForecast && getForecast.slice(1)
 			: getForecast && getForecast.slice(0, 4);
 
