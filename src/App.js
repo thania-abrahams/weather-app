@@ -1,9 +1,13 @@
-import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+
+import styled from 'styled-components';
+
 import openweather from './apis/openweather';
+
+import LoadingSpinner from './components/LoadingSpinner';
 import SearchDropdown from './components/SearchDropdown';
 import DayList from './components/DayList';
-import LoadingSpinner from './components/LoadingSpinner';
+import DayChart from './components/DayChart';
 
 const StyledWrapper = styled.div`
 	display: flex;
@@ -92,6 +96,7 @@ const App = () => {
 			{current && forecast && (
 				<DayList currentData={current} forecastData={forecast} />
 			)}
+			<DayChart />
 		</StyledWrapper>
 	);
 };

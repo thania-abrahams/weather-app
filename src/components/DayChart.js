@@ -13,7 +13,26 @@ const StyledChart = styled.div`
 	border: 1px solid darkgray;
 `;
 
-const DailyForecast = ({ forecastData, day }) => {
+const data = [
+	{
+		day: '00:00',
+		temp: '0',
+	},
+	{
+		day: '06:00',
+		temp: '10',
+	},
+	{
+		day: '12:00',
+		temp: '20',
+	},
+	{
+		day: '18:00',
+		temp: '40',
+	},
+];
+
+const DayChart = ({ forecastData, activeDay }) => {
 	const data = forecastData.list
 		.filter((forecast) => {
 			const d = new Date(forecast.dt_txt);
@@ -26,23 +45,17 @@ const DailyForecast = ({ forecastData, day }) => {
 				date: d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
 			};
 		});
-
 	return (
 		<StyledChart>
-			<LineChart width={400} height={200} data={data}>
+			<LineChart width="100%" height="100%" data={data}>
 				<XAxis dataKey="date" />
 				<YAxis dataKey="temperature" domain={['auto', 'auto']} />
 				<Tooltip />
 				<CartesianGrid stroke="cornflowerblue" />
-				<Line
-					type="monotone"
-					dataKey="temperature"
-					stroke="coral"
-					yAxisId={0}
-				/>
+				<Line type="monotone" dataKey="temp" stroke="coral" yAxisId={0} />
 			</LineChart>
 		</StyledChart>
 	);
 };
 
-export default DailyForecast;
+export default DayChart;
