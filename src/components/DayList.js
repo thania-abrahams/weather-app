@@ -64,7 +64,13 @@ const WeeklyForecast = ({
 		return moment(day).format('dddd');
 	};
 
-	let getCurrentDay = () => {
+	const getCurrentDay = () => {
+		let currentDay = new Date();
+
+		return moment(currentDay).format('dddd');
+	};
+
+	const getDate = () => {
 		let currentDay = new Date();
 
 		return moment(currentDay).format('dddd');
@@ -76,8 +82,6 @@ const WeeklyForecast = ({
 			reading.dt_txt.includes('12:00:00')
 		);
 
-	console.log(getForecast);
-
 	const getForecastAmended =
 		getForecast && getCurrentDay() === getDay(getForecast[0].dt)
 			? getForecast && getForecast.slice(1)
@@ -87,6 +91,7 @@ const WeeklyForecast = ({
 		getForecast &&
 		getForecastAmended.map((item, index) => {
 			const date = new Date(item.dt);
+			console.log(date);
 			return (
 				<StyledCard key={index} onClick={() => handleSelectedDay(date)}>
 					<StyledCardContent>

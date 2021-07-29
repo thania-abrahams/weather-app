@@ -13,7 +13,10 @@ const StyledChart = styled.div`
 	border: 1px solid darkgray;
 `;
 
-const DayChart = ({ forecastData, selectedDay }) => {
+const DayChart = ({ currentData, forecastData, selectedDay }) => {
+	console.log(currentData);
+	console.log(forecastData);
+
 	const data =
 		forecastData.data &&
 		forecastData.data.list

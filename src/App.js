@@ -101,7 +101,11 @@ const App = () => {
 					handleSelectedDay={setSelectedDay}
 				/>
 			)}
-			<DayChart forecastData={forecast} selectedDay={selectedDay} />
+			<DayChart
+				currentData={current}
+				forecastData={forecast}
+				selectedDay={selectedDay}
+			/>
 		</StyledWrapper>
 	);
 };
