@@ -13,27 +13,50 @@ const StyledChart = styled.div`
 	border: 1px solid darkgray;
 `;
 
-const DayChart = ({ dailyData, selectedDay }) => {
-	const data = dailyData && dailyData.data && dailyData.data.hourly;
-	const half = dailyData && dailyData.data && Math.ceil(data.length / 2 + 1);
+const ONE_DAY_MS = 24 * 60 * 60 * 1001;
 
-	const firstHalf =
-		dailyData &&
-		dailyData.data &&
-		data.slice(0, half).map((day) => {
-			const d = new Date(day.dt);
-			return {
-				temperature: Math.round(day.temp),
-				date: d.toLocaleTimeString([], {
-					hour: '2-digit',
-					minute: '2-digit',
-				}),
-			};
+const DayChart = ({ currentData, forecastData, selectedDay }) => {
+	const now = new Date();
+
+	let data;
+	if (selectedDay.getDate() === now.getDate()) {
+		data = [
+			{
+				...currentData.data,
+				dt: currentData.data.dt - (currentData.data.dt % 3600),
+			},
+			...forecastData.data.list.filter((forecast) => {
+				const d = new Date(forecast.dt * 1000);
+				return d.getTime() <= now.getTime() + ONE_DAY_MS;
+			}),
+		];
+	} else {
+		data = forecastData.data.list.filter((forecast) => {
+			const d = new Date(forecast.dt * 1000);
+			return (
+				d.getTime() >= selectedDay.getTime() &&
+				d.getTime() <= selectedDay.getTime() + ONE_DAY_MS
+			);
 		});
+	}
+
+	const displayData = data.map((forecast) => {
+		const d = new Date(forecast.dt * 1000);
+		return {
+			temperature: Math.round(forecast.main.temp),
+			date: d.toLocaleTimeString(undefined, {
+				minute: 'numeric',
+				hour: 'numeric',
+			}),
+		};
+	});
+
+	const startDomain = new Date();
+	startDomain.setHours(0);
 
 	return (
 		<StyledChart>
-			<LineChart width={800} height={400} data={firstHalf}>
+			<LineChart width={800} height={400} data={displayData}>
 				<XAxis dataKey="date" />
 				<YAxis dataKey="temperature" domain={['auto', 'auto']} />
 				<Tooltip />

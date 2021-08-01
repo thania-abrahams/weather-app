@@ -28,6 +28,7 @@ const cities = [
 		value: 'cape-town',
 		lat: -33.918861,
 		lon: 18.4233,
+		tz: 'GMT+2',
 	},
 	{
 		label: 'Guadalajara',
@@ -39,23 +40,27 @@ const cities = [
 
 const App = () => {
 	const [isLoading, setLoading] = useState(true);
-	const [selectedCity, setSelectedCity] = useState(cities[1]);
-	const [selectedDay, setSelectedDay] = useState(new Date());
+	const [selectedCityName, setSelectedCityName] = useState(cities[1]);
+	const [selectedDay, setSelectedDay] = useState();
 	const [current, setCurrent] = useState([]);
 	const [forecast, setForecast] = useState([]);
-	const [daily, setDaily] = useState([]);
 
 	useEffect(() => {
 		searchCurrent();
 		searchForecast();
-		searchDaily();
-	}, [selectedCity]);
+	}, [selectedCityName]);
+
+	useEffect(() => {
+		if (current && current.data) {
+			setSelectedDay(new Date(current.data.dt * 1000));
+		}
+	}, [current]);
 
 	const searchCurrent = async () => {
 		const currentData = await openweather
 			.get('/weather', {
 				params: {
-					q: selectedCity.label,
+					q: selectedCityName.label,
 					units: 'metric',
 				},
 			})
@@ -70,7 +75,7 @@ const App = () => {
 		const forecastData = await openweather
 			.get('/forecast', {
 				params: {
-					q: selectedCity.label,
+					q: selectedCityName.label,
 					units: 'metric',
 				},
 			})
@@ -81,22 +86,6 @@ const App = () => {
 		setLoading(false);
 	};
 
-	const searchDaily = async () => {
-		const dailyData = await openweather
-			.get('/onecall', {
-				params: {
-					lat: selectedCity.lat,
-					lon: selectedCity.lon,
-					units: 'metric',
-				},
-			})
-			.catch((err) => {
-				alert(err.message);
-			});
-		setDaily(dailyData);
-		setLoading(false);
-	};
-
 	if (isLoading) {
 		return <LoadingSpinner />;
 	}
@@ -104,22 +93,30 @@ const App = () => {
 	if (!current && !forecast)
 		return 'An error has occurred, please try again later.';
 
+	const showForecast = selectedDay && current && forecast && forecast.data;
 	return (
 		<StyledWrapper>
 			<SearchDropdown
 				cities={cities}
-				selectedCity={selectedCity}
-				handleSelectedCity={setSelectedCity}
+				selectedCity={selectedCityName}
+				handleSelectedCity={setSelectedCityName}
 			/>
-			{current && forecast && (
-				<DayList
-					currentData={current}
-					forecastData={forecast}
-					selectedDay={selectedDay}
-					handleSelectedDay={setSelectedDay}
-				/>
+			{showForecast && (
+				<>
+					<DayList
+						currentData={current}
+						forecastData={forecast}
+						selectedDay={selectedDay}
+						handleSelectedDay={setSelectedDay}
+					/>
+					<DayChart
+						currentData={current}
+						forecastData={forecast}
+						selectedDay={selectedDay}
+						cityInfo={forecast.data.city}
+					/>
+				</>
 			)}
-			<DayChart dailyData={daily} selectedDay={selectedDay} />
 		</StyledWrapper>
 	);
 };

@@ -22,6 +22,7 @@ const StyledCard = styled.div`
 	color: darkblue;
 	border: 1px solid lightgray;
 	opacity: 0.7;
+	background-color: ${(props) => (props.active ? '#eee' : '#fff')};
 
 	&:hover {
 		opacity: 1;
@@ -58,6 +59,7 @@ const WeeklyForecast = ({
 	selectedDay,
 	handleSelectedDay,
 }) => {
+	const currentDate = new Date(currentData.data.dt * 1000);
 	const getDay = (timestamp) => {
 		let day = new Date(timestamp * 1000);
 
@@ -70,24 +72,36 @@ const WeeklyForecast = ({
 		return moment(currentDay).format('dddd');
 	};
 
+	const getDate = () => {
+		let currentDay = new Date();
+
+		return moment(currentDay).format('dddd');
+	};
+
 	const getForecast =
 		forecastData.data &&
-		forecastData.data.list.filter((reading) =>
-			reading.dt_txt.includes('12:00:00')
-		);
+		forecastData.data.list.filter((reading) => {
+			const d = new Date(reading.dt * 1000);
+			return (
+				reading.dt_txt.includes('12:00:00') &&
+				d.getDate() !== currentDate.getDate()
+			);
+		});
 
-	const getForecastAmended =
-		getForecast && getCurrentDay() === getDay(getForecast[0].dt)
-			? getForecast && getForecast.slice(1)
-			: getForecast && getForecast.slice(0, 4);
+	const getForecastAmended = getForecast && getForecast.slice(0, 4);
 
 	const renderedForecast =
 		getForecast &&
 		getForecastAmended.map((item, index) => {
-			const date = new Date(item.dt);
-
+			const date = new Date(item.dt * 1000);
+			date.setHours(0);
+			const isActive = selectedDay.getTime() === date.getTime();
 			return (
-				<StyledCard key={index} onClick={() => handleSelectedDay(date)}>
+				<StyledCard
+					active={isActive}
+					key={index}
+					onClick={() => handleSelectedDay(date)}
+				>
 					<StyledCardContent>
 						<StyledCardContentTitle>
 							{new Date(item.dt_txt).toLocaleDateString(undefined, {
@@ -108,9 +122,14 @@ const WeeklyForecast = ({
 			);
 		});
 
+	const isActive = selectedDay.getTime() === currentDate.getTime();
+
 	return (
 		<StyledCardList>
-			<StyledCard>
+			<StyledCard
+				active={isActive}
+				onClick={() => handleSelectedDay(currentDate)}
+			>
 				<StyledCardContent>
 					<StyledCardContentTitle>
 						{getDay(currentData.data.dt)}
