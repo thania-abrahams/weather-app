@@ -70,12 +70,6 @@ const WeeklyForecast = ({
 		return moment(currentDay).format('dddd');
 	};
 
-	const getDate = () => {
-		let currentDay = new Date();
-
-		return moment(currentDay).format('dddd');
-	};
-
 	const getForecast =
 		forecastData.data &&
 		forecastData.data.list.filter((reading) =>
