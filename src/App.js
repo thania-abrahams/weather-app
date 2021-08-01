@@ -43,10 +43,12 @@ const App = () => {
 	const [selectedDay, setSelectedDay] = useState(new Date());
 	const [current, setCurrent] = useState([]);
 	const [forecast, setForecast] = useState([]);
+	const [daily, setDaily] = useState([]);
 
 	useEffect(() => {
 		searchCurrent();
 		searchForecast();
+		searchDaily();
 	}, [selectedCity]);
 
 	const searchCurrent = async () => {
@@ -79,6 +81,22 @@ const App = () => {
 		setLoading(false);
 	};
 
+	const searchDaily = async () => {
+		const dailyData = await openweather
+			.get('/onecall', {
+				params: {
+					lat: selectedCity.lat,
+					lon: selectedCity.lon,
+					units: 'metric',
+				},
+			})
+			.catch((err) => {
+				alert(err.message);
+			});
+		setDaily(dailyData);
+		setLoading(false);
+	};
+
 	if (isLoading) {
 		return <LoadingSpinner />;
 	}
@@ -101,11 +119,7 @@ const App = () => {
 					handleSelectedDay={setSelectedDay}
 				/>
 			)}
-			<DayChart
-				currentData={current}
-				forecastData={forecast}
-				selectedDay={selectedDay}
-			/>
+			<DayChart dailyData={daily} selectedDay={selectedDay} />
 		</StyledWrapper>
 	);
 };

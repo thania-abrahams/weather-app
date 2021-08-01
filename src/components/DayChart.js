@@ -13,30 +13,27 @@ const StyledChart = styled.div`
 	border: 1px solid darkgray;
 `;
 
-const DayChart = ({ currentData, forecastData, selectedDay }) => {
-	console.log(currentData);
-	console.log(forecastData);
+const DayChart = ({ dailyData, selectedDay }) => {
+	const data = dailyData && dailyData.data && dailyData.data.hourly;
+	const half = dailyData && dailyData.data && Math.ceil(data.length / 2 + 1);
 
-	const data =
-		forecastData.data &&
-		forecastData.data.list
-			.filter((forecast) => {
-				const d = new Date(forecast.dt_txt);
-				return d.getDay() === selectedDay.getDay();
-			})
-			.map((forecast) => {
-				const d = new Date(forecast.dt_txt);
-				return {
-					temperature: Math.round(forecast.main.temp),
-					date: d.toLocaleTimeString([], {
-						hour: '2-digit',
-						minute: '2-digit',
-					}),
-				};
-			});
+	const firstHalf =
+		dailyData &&
+		dailyData.data &&
+		data.slice(0, half).map((day) => {
+			const d = new Date(day.dt);
+			return {
+				temperature: Math.round(day.temp),
+				date: d.toLocaleTimeString([], {
+					hour: '2-digit',
+					minute: '2-digit',
+				}),
+			};
+		});
+
 	return (
 		<StyledChart>
-			<LineChart width={800} height={400} data={data}>
+			<LineChart width={800} height={400} data={firstHalf}>
 				<XAxis dataKey="date" />
 				<YAxis dataKey="temperature" domain={['auto', 'auto']} />
 				<Tooltip />

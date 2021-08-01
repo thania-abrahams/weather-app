@@ -91,7 +91,7 @@ const WeeklyForecast = ({
 		getForecast &&
 		getForecastAmended.map((item, index) => {
 			const date = new Date(item.dt);
-			console.log(date);
+
 			return (
 				<StyledCard key={index} onClick={() => handleSelectedDay(date)}>
 					<StyledCardContent>
