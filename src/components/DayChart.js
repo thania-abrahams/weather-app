@@ -40,6 +40,8 @@ const DayChart = ({ currentData, forecastData, selectedDay }) => {
 		});
 	}
 
+	console.log(data);
+
 	const displayData = data.map((forecast) => {
 		const d = new Date(forecast.dt * 1000);
 		return {
@@ -50,9 +52,6 @@ const DayChart = ({ currentData, forecastData, selectedDay }) => {
 			}),
 		};
 	});
-
-	const startDomain = new Date();
-	startDomain.setHours(0);
 
 	return (
 		<StyledChart>
