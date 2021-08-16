@@ -8,6 +8,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import SearchDropdown from './components/SearchDropdown';
 import DayList from './components/DayList';
 import DayChart from './components/DayChart';
+import moment from 'moment';
 
 const StyledWrapper = styled.div`
 	display: flex;
@@ -94,6 +95,7 @@ const App = () => {
 		return 'An error has occurred, please try again later.';
 
 	const showForecast = selectedDay && current && forecast && forecast.data;
+
 	return (
 		<StyledWrapper>
 			<SearchDropdown
@@ -113,7 +115,6 @@ const App = () => {
 						currentData={current}
 						forecastData={forecast}
 						selectedDay={selectedDay}
-						cityInfo={forecast.data.city}
 					/>
 				</>
 			)}

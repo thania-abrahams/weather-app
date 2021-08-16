@@ -60,31 +60,21 @@ const WeeklyForecast = ({
 	handleSelectedDay,
 }) => {
 	const currentDate = new Date(currentData.data.dt * 1000);
+
 	const getDay = (timestamp) => {
 		let day = new Date(timestamp * 1000);
 
 		return moment(day).format('dddd');
 	};
 
-	const getCurrentDay = () => {
-		let currentDay = new Date();
-
-		return moment(currentDay).format('dddd');
-	};
-
-	const getDate = () => {
-		let currentDay = new Date();
-
-		return moment(currentDay).format('dddd');
-	};
-
 	const getForecast =
 		forecastData.data &&
 		forecastData.data.list.filter((reading) => {
-			const d = new Date(reading.dt * 1000);
+			const date = new Date(reading.dt * 1000);
+
 			return (
 				reading.dt_txt.includes('12:00:00') &&
-				d.getDate() !== currentDate.getDate()
+				date.getDate() !== currentDate.getDate()
 			);
 		});
 
@@ -94,8 +84,9 @@ const WeeklyForecast = ({
 		getForecast &&
 		getForecastAmended.map((item, index) => {
 			const date = new Date(item.dt * 1000);
-			date.setHours(0);
+
 			const isActive = selectedDay.getTime() === date.getTime();
+
 			return (
 				<StyledCard
 					active={isActive}
