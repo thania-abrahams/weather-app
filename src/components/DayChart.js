@@ -33,28 +33,27 @@ const DayChart = ({ currentData, forecastData, selectedDay }) => {
 		];
 	} else {
 		data = forecastData.data.list.filter((forecast) => {
-			const d = new Date(forecast.dt * 1000);
+			const date = new Date(forecast.dt * 1000);
 
-			return (
-				d.getTime() >= selectedDay.getTime() &&
-				d.getTime() <= selectedDay.getTime() + ONE_DAY_MS
-			);
+			const periodToDisplay =
+				date.getTime() >= selectedDay.getTime() &&
+				date.getTime() <= selectedDay.getTime() + ONE_DAY_MS;
+
+			return periodToDisplay;
 		});
 	}
 
 	const displayData = data.map((forecast) => {
-		const d = new Date(forecast.dt * 1000);
+		const date = new Date(forecast.dt * 1000);
 
 		return {
 			temperature: Math.round(forecast.main.temp),
-			date: d.toLocaleTimeString(undefined, {
+			date: date.toLocaleTimeString(undefined, {
 				minute: 'numeric',
 				hour: 'numeric',
 			}),
 		};
 	});
-
-	console.log(displayData);
 
 	return (
 		<StyledChart>
