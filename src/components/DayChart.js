@@ -27,10 +27,11 @@ const DayChart = ({ currentData, forecastData, selectedDay }) => {
 				dt: currentData.data.dt - (currentData.data.dt % 3600),
 			},
 			...forecastData.data.list.filter((forecast) => {
-				const d = new Date(forecast.dt * 1000);
-				return d.getTime() <= now.getTime() + ONE_DAY_MS;
+				const date = new Date(forecast.dt * 1000);
+				return date.getTime() <= now.getTime() + ONE_DAY_MS;
 			}),
 		];
+		console.log(currentData.data.dt);
 	} else {
 		data = forecastData.data.list.filter((forecast) => {
 			const date = new Date(forecast.dt * 1000);
