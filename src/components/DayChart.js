@@ -28,7 +28,10 @@ const DayChart = ({ currentData, forecastData, selectedDay }) => {
 			},
 			...forecastData.data.list.filter((forecast) => {
 				const date = new Date(forecast.dt * 1000);
-				return date.getTime() <= now.getTime() + ONE_DAY_MS;
+
+				const periodToDisplay = date.getTime() <= now.getTime() + ONE_DAY_MS;
+
+				return periodToDisplay;
 			}),
 		];
 		console.log(currentData.data.dt);
