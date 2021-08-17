@@ -19,6 +19,7 @@ const DayChart = ({ currentData, forecastData, selectedDay }) => {
 	const now = new Date();
 
 	let data;
+
 	if (selectedDay.getDate() === now.getDate()) {
 		data = [
 			{
@@ -33,6 +34,7 @@ const DayChart = ({ currentData, forecastData, selectedDay }) => {
 	} else {
 		data = forecastData.data.list.filter((forecast) => {
 			const d = new Date(forecast.dt * 1000);
+
 			return (
 				d.getTime() >= selectedDay.getTime() &&
 				d.getTime() <= selectedDay.getTime() + ONE_DAY_MS
@@ -42,6 +44,7 @@ const DayChart = ({ currentData, forecastData, selectedDay }) => {
 
 	const displayData = data.map((forecast) => {
 		const d = new Date(forecast.dt * 1000);
+
 		return {
 			temperature: Math.round(forecast.main.temp),
 			date: d.toLocaleTimeString(undefined, {
@@ -50,6 +53,8 @@ const DayChart = ({ currentData, forecastData, selectedDay }) => {
 			}),
 		};
 	});
+
+	console.log(displayData);
 
 	return (
 		<StyledChart>

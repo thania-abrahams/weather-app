@@ -22,7 +22,7 @@ const StyledCard = styled.div`
 	color: darkblue;
 	border: 1px solid lightgray;
 	opacity: 0.7;
-	background-color: ${(props) => (props.active ? '#eee' : '#fff')};
+	background-color: ${(props) => (props.active ? '#0d98ba' : '#eee')};
 
 	&:hover {
 		opacity: 1;
@@ -95,7 +95,7 @@ const WeeklyForecast = ({
 				>
 					<StyledCardContent>
 						<StyledCardContentTitle>
-							{new Date(item.dt_txt).toLocaleDateString(undefined, {
+							{date.toLocaleDateString(undefined, {
 								weekday: 'long',
 							})}
 						</StyledCardContentTitle>
